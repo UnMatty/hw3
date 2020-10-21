@@ -1,26 +1,24 @@
 package ru.matprojects.stc31.hw;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class MathBox {
-    private Set<Number> numSet;
-
+public class MathBox extends ObjectBox {
     public MathBox(Number[] arrNumber) {
-        numSet = new HashSet(Arrays.asList(arrNumber));
+        super(arrNumber);
     }
 
     /**
      * find sum of inner objects and return as Double value
      * @return sum in Double object
      */
-    public Double summator() {
-        return numSet.stream()
-                .mapToDouble(Number::doubleValue)
-                .reduce(Double::sum)
-                .orElse(0d);
+    public int summator() {
+        Set<Object> objects = this.getObjects();
+        return objects.stream()
+                .mapToInt(o -> (Integer) o)
+                .reduce(Integer::sum)
+                .orElse(0);
     }
 
     /**
@@ -28,41 +26,41 @@ public class MathBox {
      * @param split a divide arg
      */
     public void splitter(Number split) {
-        numSet = numSet.stream()
-                .mapToDouble(Number::doubleValue)
-                .map(e -> e / split.doubleValue())
+        Set<Object> objects = this.getObjects();
+        objects = (objects.stream()
+                .mapToInt(o -> (Integer) o)
+                .map(e -> e / split.intValue())
                 .mapToObj(e -> (Number) e)
-                .collect(Collectors.toCollection(HashSet::new));
-    }
-
-    public Set<Number> getNumSet() {
-        return numSet;
+                .collect(Collectors.toCollection(HashSet::new)));
+        this.setObjects(objects);
     }
 
     public void findAndRemoveElement(Number element){
-        numSet.remove(element);
+        this.deleteObject(element);
     }
 
     @Override
     public int hashCode() {
-        return numSet.hashCode();
+        Set<Object> objects = this.getObjects();
+        return objects.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
+        Set<Object> objects = this.getObjects();
         if (this == obj)
             return true;
 
         if (obj == null || obj.getClass() != this.getClass())
             return false;
 
-        return this.getNumSet().equals(((MathBox) obj).getNumSet());
+        return objects.equals(((MathBox) obj).getObjects());
     }
 
     @Override
     public String toString() {
         return "Mathbox{"
-                + numSet
+                + this.dump()
                 + "}";
     }
 }

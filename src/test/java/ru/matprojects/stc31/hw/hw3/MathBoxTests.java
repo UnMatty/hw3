@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MathBoxTests {
     private MathBox mathBox;
-    private final Integer[] intArr = {1, 2, 3, 4, 5, 6, 6, 6};
+    private final Number[] intArr = {1, 2, 3, 4, 5, 6, 6, 6};
 
     @BeforeEach
     void setUp() {
@@ -29,9 +29,8 @@ class MathBoxTests {
     @Test
     void splitterMathBoxTest(){
         mathBox.splitter(2);
-        Set<Number> testSet = new HashSet<>();
-        testSet.addAll(Arrays.asList(0.5, 1d, 1.5, 2d, 2.5, 3d));
-        assertEquals(testSet, mathBox.getNumSet());
+        MathBox testBox = new MathBox(new Integer[]{0, 1, 2, 3});
+        assertEquals(testBox, mathBox);
     }
 
     @Test
@@ -69,8 +68,8 @@ class MathBoxTests {
 
     @Test
     void testRemoveElement() {
-        assertTrue(mathBox.getNumSet().contains(2));
+        assertTrue(mathBox.getObjects().contains(2));
         mathBox.findAndRemoveElement(2);
-        assertFalse(mathBox.getNumSet().contains(2));
+        assertFalse(mathBox.getObjects().contains(2));
     }
 }
