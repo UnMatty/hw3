@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class MathBox extends ObjectBox {
-    public MathBox(Number[] arrNumber) {
+public class MathBox<T extends Number> extends ObjectBox {
+    public MathBox(T[] arrNumber) {
         super(arrNumber);
     }
 
@@ -14,9 +14,9 @@ public class MathBox extends ObjectBox {
      * @return sum in Double object
      */
     public int summator() {
-        Set<Object> objects = this.getObjects();
+        Set objects = this.getObjects();
         return objects.stream()
-                .mapToInt(o -> (Integer) o)
+                .mapToDouble(o -> (double) o)
                 .reduce(Integer::sum)
                 .orElse(0);
     }

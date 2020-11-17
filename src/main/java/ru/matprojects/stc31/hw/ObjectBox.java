@@ -4,22 +4,22 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ObjectBox {
-    private Set<Object> objects;
+public class ObjectBox<T extends Object> {
+    private Set<T> objects;
 
     public ObjectBox() {
         this.objects = new HashSet<>();
     }
 
-    public ObjectBox(Object[] objects) {
+    public ObjectBox(T[] objects) {
         this.objects = new HashSet(Arrays.asList(objects));
     }
 
-    public void addObject(Object obj) {
+    public void addObject(T obj) {
         objects.add(obj);
     }
 
-    public void deleteObject(Object obj) {
+    public void deleteObject(T obj) {
         objects.remove(obj);
     }
 
@@ -27,11 +27,11 @@ public class ObjectBox {
         return objects.toString();
     }
 
-    public Set<Object> getObjects() {
+    public Set<T> getObjects() {
         return objects;
     }
 
-    public void setObjects(Set<Object> objects) {
+    public void setObjects(Set<T> objects) {
         this.objects = objects;
     }
 }
