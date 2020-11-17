@@ -13,26 +13,25 @@ public class MathBox<T extends Number> extends ObjectBox {
      * find sum of inner objects and return as Double value
      * @return sum in Double object
      */
-    public int summator() {
-        Set objects = this.getObjects();
+    public Double summator() {
+        Set<T> objects = this.getObjects();
         return objects.stream()
-                .mapToDouble(o -> (double) o)
-                .reduce(Integer::sum)
-                .orElse(0);
+                .mapToDouble(Number::doubleValue)
+                .reduce(Double::sum)
+                .orElse(0d);
     }
 
     /**
      * divide all elements by split
      * @param split a divide arg
      */
-    public void splitter(Number split) {
-        Set<Object> objects = this.getObjects();
-        objects = (objects.stream()
-                .mapToInt(o -> (Integer) o)
-                .map(e -> e / split.intValue())
-                .mapToObj(e -> (Number) e)
-                .collect(Collectors.toCollection(HashSet::new)));
-        this.setObjects(objects);
+    public void splitter(T split) {
+        Set<Number> splittedSet = new HashSet<>(this.getObjects().size());
+        for (Object object : this.getObjects()) {
+            T v =(T) object;
+            splittedSet.add(v.doubleValue() / split.doubleValue());
+        }
+        this.setObjects(splittedSet);
     }
 
     public void findAndRemoveElement(Number element){

@@ -4,10 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.matprojects.stc31.hw.MathBox;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +26,7 @@ class MathBoxTests {
     @Test
     void splitterMathBoxTest(){
         mathBox.splitter(2);
-        MathBox testBox = new MathBox(new Integer[]{0, 1, 2, 3});
+        MathBox testBox = new MathBox(new Double[]{0.5, 1.0, 1.5, 2.0, 3.0, 2.5});
         assertEquals(testBox, mathBox);
     }
 
