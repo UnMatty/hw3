@@ -3,12 +3,11 @@ package ru.matprojects.stc31.hw;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-public class MathBox {
-    private Set<Number> numSet;
+public class MathBox<T extends Number> {
+    private Set<T> numSet;
 
-    public MathBox(Number[] arrNumber) {
+    public MathBox(T[] arrNumber) {
         numSet = new HashSet(Arrays.asList(arrNumber));
     }
 
@@ -27,19 +26,19 @@ public class MathBox {
      * divide all elements by split
      * @param split a divide arg
      */
-    public void splitter(Number split) {
-        numSet = numSet.stream()
-                .mapToDouble(Number::doubleValue)
-                .map(e -> e / split.doubleValue())
-                .mapToObj(e -> (Number) e)
-                .collect(Collectors.toCollection(HashSet::new));
+    public void splitter(T split) {
+        Set<Number> splittedSet = new HashSet<>(numSet.size());
+        for (T t : numSet) {
+            splittedSet.add(t.doubleValue() / split.doubleValue());
+        }
+        numSet = (Set<T>) splittedSet;
     }
 
-    public Set<Number> getNumSet() {
+    public Set<T> getNumSet() {
         return numSet;
     }
 
-    public void findAndRemoveElement(Number element){
+    public void findAndRemoveElement(T element){
         numSet.remove(element);
     }
 
